@@ -1,12 +1,23 @@
-from monorepo.core.db.ledger_repository import LedgerRepository  # BaseLedgerService should use LedgerRepository for db operations
+from core.db.ledger_repository import LedgerRepository
+from ..schemas import SharedLedgerOperation
+from pydantic import BaseModel
 
 
-class BaseLedgerService():
+# Validation i will write a mw for validation but in this state thats ok
+class CreateLedgerBody(BaseModel):
+    owner_id: str
+    ledger_operation: SharedLedgerOperation
+    nonce: str
 
-    def update_balance(
+
+class BaseLedgerService:
+    def __init__(self):
+        # needs dependency injection
+        self.ledger_repository = LedgerRepository()
+
+    def create_ledger(
         self,
-        operation: ?, # What type should this be?
-        # Other params if needed
+        body: CreateLedgerBody,
     ):
         # Implementation
         pass

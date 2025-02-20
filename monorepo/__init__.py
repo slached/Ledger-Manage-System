@@ -1,19 +1,9 @@
-from typing import Union
-
 from fastapi import FastAPI
-from pydantic import BaseModel
+from healthai.src.api.ledgers import router as healthai
+#from travelai.src.api.ledgers import router as travelai
 
 app = FastAPI()
 
-
-"""
-# for validation
-class Item(BaseModel):
-    name: str
-    price: float
-    is_offer: Union[bool, None] = None"""
-
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
+# routing
+app.include_router(healthai.router)
+#app.include_router(travelai.router)
