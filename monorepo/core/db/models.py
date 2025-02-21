@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, Boolean, DateTime, Enum, func
-from . import Base
+from ..db import Base
 from ..ledgers.schemas import LedgerOperation
 
 
