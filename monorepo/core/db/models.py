@@ -11,4 +11,13 @@ class Ledgers(Base):
     amount = Column(Boolean, nullable=False)
     nonce = Column(String, nullable=False)
     owner_id = Column(String, nullable=False)
-    created_on = Column(DateTime, default=func.localtime(), nullable=False)
+    created_on = Column(DateTime, default=func.now(), nullable=False)
+
+
+class Owners(Base):
+    __tablename__ = "owners"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False)
+    surname = Column(String, nullable=False)
+    created_on = Column(DateTime, default=func.now(), nullable=False)
