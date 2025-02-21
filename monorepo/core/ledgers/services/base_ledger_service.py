@@ -1,4 +1,4 @@
-from core.db.ledger_repository import LedgerRepository
+from ...db.ledger_repository import LedgerRepository
 from ..schemas import SharedLedgerOperation
 from pydantic import BaseModel
 
