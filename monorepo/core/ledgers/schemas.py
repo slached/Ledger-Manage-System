@@ -47,10 +47,15 @@ class OwnerResponse(BaseModel):
     status_code: int
 
 
+class GetBalanceResponse(BaseModel):
+    balance: int
+    status_code: int
+
+
 # Body Validators
 class HealthAIAddLedgerEntryBody(BaseModel):
     owner_id: str
-    ledger_operation: HealthAILedgerOperation
+    ledger_operation: HealthAILedgerOperation # type: ignore
     nonce: str
 
 
