@@ -6,7 +6,7 @@ from sqlalchemy import pool
 from alembic import context
 
 # importing model needed for autogenerate models that created via SQLAlchemy
-from core.db import URL_DATABASE, Base, models
+from monorepo.core.db import URL_DATABASE, Base, models
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

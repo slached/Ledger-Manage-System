@@ -1,5 +1,7 @@
 from enum import Enum
 from pydantic import BaseModel
+from itertools import chain
+from monorepo.core.ledgers.schemas import BaseLedgerOperation
 
 
 # App-specific operations
@@ -9,26 +11,10 @@ class ExtraLedgerOperation(Enum):
     CONTENT_ACCESS = "CONTENT_ACCESS"
 
 
-# This way did not work
-"""class HealthAILedgerOperation(Enum):
-    def __init__(self):
-        _extra_operations = {op.name: op.value for op in ExtraLedgerOperation}
-        # Base operations
-        _base_operations = {op.name: op.value for op in BaseLedgerOperation}
-        locals().update(_base_operations)
-        locals().update(_extra_operations)"""
-
-
-class HealthAILedgerOperation(Enum):
-    # Base operations
-    DAILY_REWARD = "DAILY_REWARD"
-    SIGNUP_CREDIT = "SIGNUP_CREDIT"
-    CREDIT_SPEND = "CREDIT_SPEND"
-    CREDIT_ADD = "CREDIT_ADD"
-
-    # Extra operations goes here
-    CONTENT_CREATION = "CONTENT_CREATION"
-    CONTENT_ACCESS = "CONTENT_ACCESS"
+HealthAILedgerOperation: Enum = Enum(
+    "HealthAILedgerOperation",
+    [(i.name, i.value) for i in chain(BaseLedgerOperation, ExtraLedgerOperation)],
+)
 
 
 # Validation section
