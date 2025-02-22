@@ -1,10 +1,12 @@
 from enum import Enum, IntEnum
-from itertools import chain
 from pydantic import BaseModel
 
 # import apps extra operations enum
 from healthai.src.api.ledgers.schemas import (
     ExtraLedgerOperation as HealthAIExtraLedgerOperation,
+)
+from travelai.src.api.ledgers.schemas import (
+    ExtraLedgerOperation as TravelAIExtraLedgerOperation,
 )
 
 
@@ -18,21 +20,41 @@ class BaseLedgerOperation(Enum):
 
 # this contains all app's operations
 # whenever new app added, they must add in chain too
-LedgerOperation: Enum = Enum(
-    "LedgerOperation",
-    [
-        (i.name, i.value)
-        for i in chain(BaseLedgerOperation, HealthAIExtraLedgerOperation)
-    ],
-)
+unique_names = {}
+for enum_class in [
+    BaseLedgerOperation,
+    HealthAIExtraLedgerOperation,
+    TravelAIExtraLedgerOperation,
+]:
+    for i in enum_class:
+        if i.name not in unique_names:
+            unique_names[i.name] = i.value
+
+LedgerOperation = Enum("LedgerOperation", unique_names)
+
 # Base + HealthAI extra operations
-HealthAILedgerOperation: Enum = Enum(
-    "HealthAILedgerOperation",
-    [
-        (i.name, i.value)
-        for i in chain(BaseLedgerOperation, HealthAIExtraLedgerOperation)
-    ],
-)
+unique_names = {}
+for enum_class in [
+    BaseLedgerOperation,
+    HealthAIExtraLedgerOperation,
+]:
+    for i in enum_class:
+        if i.name not in unique_names:
+            unique_names[i.name] = i.value
+
+HealthAILedgerOperation = Enum("HealthAILedgerOperation", unique_names)
+
+# Base + TravelAI extra operations
+unique_names = {}
+for enum_class in [
+    BaseLedgerOperation,
+    TravelAIExtraLedgerOperation,
+]:
+    for i in enum_class:
+        if i.name not in unique_names:
+            unique_names[i.name] = i.value
+
+TravelAILedgerOperation = Enum("TravelAILedgerOperation", unique_names)
 
 
 # Validation section
@@ -55,7 +77,7 @@ class GetBalanceResponse(BaseModel):
 # Body Validators
 class HealthAIAddLedgerEntryBody(BaseModel):
     owner_id: str
-    ledger_operation: HealthAILedgerOperation # type: ignore
+    ledger_operation: HealthAILedgerOperation  # type: ignore
     nonce: str
 
 

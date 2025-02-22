@@ -1,20 +1,13 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
 from monorepo.core.ledgers.services.base_ledger_service import BaseLedgerService
-
+from monorepo.core.db import get_db
+from monorepo.core.ledgers.schemas import (
+    HealthAIAddLedgerEntryBody,
+    InsertResponse,
+    GetBalanceResponse,
+)
 
 router = APIRouter()
-ledger_service = BaseLedgerService()  # routers should use the ledger service from the core
 
-
-# Example endpoint
-@router.post(
-    "/ledger-entry",
-)
-def add_ledger_entry(
-    operation: ? # What type should this be?
-    owner_id: str,
-    nonce: str,
-    # Other params if needed
-):
-    # Implementation
-    pass
+# Different router activities goes here
