@@ -1,8 +1,8 @@
-"""healthai extra ledger operation added
+"""owner model added
 
-Revision ID: 1613dce260d0
+Revision ID: 7235ff36d96f
 Revises: 
-Create Date: 2025-02-22 03:13:39.552731
+Create Date: 2025-02-22 20:24:06.589974
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '1613dce260d0'
+revision: str = '7235ff36d96f'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -23,7 +23,7 @@ def upgrade() -> None:
     op.create_table('ledgers',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('operation', sa.Enum('DAILY_REWARD', 'SIGNUP_CREDIT', 'CREDIT_SPEND', 'CREDIT_ADD', 'CONTENT_CREATION', 'CONTENT_ACCESS', name='ledgeroperation'), nullable=False),
-    sa.Column('amount', sa.Boolean(), nullable=False),
+    sa.Column('amount', sa.Integer(), nullable=False),
     sa.Column('nonce', sa.String(), nullable=False),
     sa.Column('owner_id', sa.String(), nullable=False),
     sa.Column('created_on', sa.DateTime(), nullable=False),
@@ -34,6 +34,7 @@ def upgrade() -> None:
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=False),
     sa.Column('surname', sa.String(), nullable=False),
+    sa.Column('balance', sa.Integer(), nullable=False),
     sa.Column('created_on', sa.DateTime(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
