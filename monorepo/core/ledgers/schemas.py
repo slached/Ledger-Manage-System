@@ -61,6 +61,7 @@ TravelAILedgerOperation = Enum("TravelAILedgerOperation", unique_names)
 # Response validators
 class InsertResponse(BaseModel):
     msg: str
+    id: int
     status_code: int
 
 

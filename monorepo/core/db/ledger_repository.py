@@ -14,7 +14,9 @@ class LedgerRepository:
         self.db.commit()
         self.db.refresh(new_owner)
         return InsertResponse(
-            msg=f"{new_owner.id} created successfully.", status_code=201
+            msg=f"{new_owner.name} created successfully.",
+            id=new_owner.id,
+            status_code=201,
         )
 
     def InsertLedgerEntry(self, body: dict):
@@ -29,7 +31,9 @@ class LedgerRepository:
         self.db.refresh(new_ledger)
 
         return InsertResponse(
-            msg=f"{new_ledger.id} created successfully.", status_code=201
+            msg=f"{new_ledger.id} created successfully.",
+            id=new_ledger.id,
+            status_code=201,
         )
 
     def GetOwnerById(self, owner_id: str):
